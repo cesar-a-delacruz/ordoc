@@ -1,5 +1,6 @@
 import { useState } from "react";
 import client from "../supabase/client";
+import "../styles/Register.css";
 
 function Register() {
   const [name, setName] = useState("");
