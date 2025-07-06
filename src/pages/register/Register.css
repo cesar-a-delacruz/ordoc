@@ -1,0 +1,19 @@
+form .button-group .form-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background-color: #f1f3f9;
+  border: 1px solid #e0e6ed;
+  border-radius: 8px;
+}
+.form-link a {
+  color: #5a626d;
+  text-decoration: none;
+  height: min-content;
+}
+
+form .button-group .form-link:hover {
+  background-color: #e4e8f4;
+  transform: translateY(-2px);
+}

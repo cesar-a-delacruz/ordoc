@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import client from "./supabase/client";
 import ai from "./gemma/ai";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
 import Profile from "./pages/Profile";
 import Upload from "./pages/Upload";
 import Home from "./pages/Home";
