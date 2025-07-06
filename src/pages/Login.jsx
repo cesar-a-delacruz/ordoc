@@ -13,6 +13,7 @@ function Login() {
     await client.auth.signInWithPassword({
       email: email,
       password: password,
+      setRememberMe: rememberMe
     });
   };
 
