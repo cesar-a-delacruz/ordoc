@@ -1,5 +1,6 @@
 import { useState } from "react";
 import client from "../supabase/client";
+import "../styles/Upload.css";
 
 function Upload() {
   const [name, setName] = useState("");
@@ -27,7 +28,8 @@ function Upload() {
   };
 
   return (
-    <div>
+     <div className="upload-container">
+      <div className="upload-header"></div>
       <h2>Subir Documento</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="file">Documento:</label>
