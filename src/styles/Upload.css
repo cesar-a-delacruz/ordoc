@@ -1,0 +1,78 @@
+.upload-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.upload-header {
+  height: 6px;
+  background: linear-gradient(90deg, #6a11cb 0%, #a625fc 100%);
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 20px;
+}
+
+.upload-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #3f51b5;
+}
+
+form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #444;
+}
+
+form input[type="text"],
+form input[type="date"],
+form input[type="file"],
+form select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+form input:focus,
+form select:focus {
+  border-color: #3f51b5;
+  box-shadow: 0 0 5px rgba(63, 81, 181, 0.3);
+  outline: none;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(to right, #6a11cb 0%, #a625fc 100%);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(to right, #303f9f, #7200a7);
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .upload-container {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  button[type="submit"] {
+    padding: 10px;
+  }
+}

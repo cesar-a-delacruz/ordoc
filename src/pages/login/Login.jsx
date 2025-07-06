@@ -20,6 +20,8 @@ function Login() {
           <input
             type="text"
             id="email"
+            class="input-field" 
+            placeholder="Ingresa Email" 
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -30,6 +32,8 @@ function Login() {
           <input
             type="password"
             id="password"
+            class="input-field" 
+            placeholder="Ingresa tu Contraseña"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
