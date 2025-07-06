@@ -1,5 +1,5 @@
 import { useState } from "react";
-import client from "../supabase/client";
+import supabase from "../apis/supabase";
 
 function Upload() {
   const [name, setName] = useState("");
@@ -9,19 +9,19 @@ function Upload() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = (await client.auth.getUser()).data.user;
+    const user = (await supabase.auth.getUser()).data.user;
     const file = document.getElementById("file").files[0];
     const fileBucketPath =
       `${user.id.toString()}/${name.replaceAll(" ", "-")}` +
       file.name.substring(file.name.lastIndexOf(".") + 1).toLowerCase();
 
-    await client.storage.from("documents").upload(fileBucketPath, file);
-    await client.from("documents").insert({
+    await supabase.storage.from("documents").upload(fileBucketPath, file);
+    await supabase.from("documents").insert({
       name: name,
       type: type,
       expedition: expedition,
       expiration: expiration,
-      url: client.storage.from("documents").getPublicUrl(fileBucketPath).data
+      url: supabase.storage.from("documents").getPublicUrl(fileBucketPath).data
         .publicUrl,
     });
   };

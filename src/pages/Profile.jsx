@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import client from "../supabase/client";
+import supabase from "../apis/supabase";
 
 function Profile() {
   const [name, setName] = useState("");
@@ -8,9 +8,9 @@ function Profile() {
 
   useEffect(() => {
     (async () => {
-      const user = (await client.auth.getUser()).data.user;
+      const user = (await supabase.auth.getUser()).data.user;
       const profile = (
-        await client.from("profiles").select("name, birth").eq("id", user.id)
+        await supabase.from("profiles").select("name, birth").eq("id", user.id)
       ).data[0];
 
       setName(profile.name);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import client from "../../supabase/client";
+import supabase from "../../apis/supabase";
 import "./Register.css";
 
 function Register() {
@@ -66,7 +66,7 @@ function Register() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await client.auth.signUp({
+    await supabase.auth.signUp({
       email: email,
       password: password,
       options: {

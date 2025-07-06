@@ -1,5 +1,5 @@
 import { useState } from "react";
-import client from "../../supabase/client";
+import supabase from "../../apis/supabase";
 import "./Login.css";
 
 function Login() {
@@ -45,7 +45,7 @@ function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await client.auth.signInWithPassword({
+    await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
