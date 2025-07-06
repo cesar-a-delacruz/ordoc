@@ -37,7 +37,7 @@
 
 .profile-sidebar {
   width: 300px;
-  background: linear-gradient(to bottom, #6a11cb, #2575fc);
+  background: linear-gradient(to bottom,#6a11cb 0%, #a625fc 100%);
   color: white;
   padding: 30px;
   display: flex;
@@ -400,12 +400,12 @@ input:checked + .slider:before {
 }
 
 .edit-btn {
-  background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  background: linear-gradient(to right, #6a11cb 0%, #a625fc 100%);
   color: white;
 }
 
 .save-btn {
-  background: linear-gradient(to right, #00b09b, #96c93d);
+  background: linear-gradient(to right, #6b36cf, #5f1788);
   color: white;
 }
 
@@ -416,13 +416,13 @@ input:checked + .slider:before {
 }
 
 .edit-btn:hover {
-  background: linear-gradient(to right, #5a0db7 0%, #1c68f5 100%);
+  background: linear-gradient(to right,  #6a11cb 0%, #a625fc 100%);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(106, 17, 203, 0.3);
 }
 
 .save-btn:hover {
-  background: linear-gradient(to right, #009c88, #86b634);
+  background: linear-gradient(to right,  #6b36cf, #5f1788);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 176, 155, 0.3);
 }
