@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import supabase from "../apis/supabase";
+import supabase from "../../apis/supabase";
 
 function Profile() {
   const [name, setName] = useState("");

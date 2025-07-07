@@ -3,8 +3,8 @@ import supabase from "./apis/supabase/";
 import google from "./apis/google";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
-import Profile from "./pages/Profile";
-import Upload from "./pages/Upload";
+import Profile from "./pages/profile/Profile";
+import Upload from "./pages/upload/Upload";
 import Home from "./pages/Home";
 
 function App() {

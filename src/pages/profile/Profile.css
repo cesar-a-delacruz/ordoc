@@ -3,7 +3,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 30px 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
 }
 
@@ -37,7 +37,7 @@
 
 .profile-sidebar {
   width: 300px;
-  background: linear-gradient(to bottom,#6a11cb 0%, #a625fc 100%);
+  background: linear-gradient(to bottom, #6a11cb 0%, #a625fc 100%);
   color: white;
   padding: 30px;
   display: flex;
@@ -354,7 +354,7 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  transition: .4s;
+  transition: 0.4s;
   border-radius: 34px;
 }
 
@@ -366,7 +366,7 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
   left: 4px;
   bottom: 4px;
   background-color: white;
-  transition: .4s;
+  transition: 0.4s;
   border-radius: 50%;
 }
 
@@ -386,7 +386,9 @@ input:checked + .slider:before {
   margin-top: 20px;
 }
 
-.edit-btn, .save-btn, .cancel-btn {
+.edit-btn,
+.save-btn,
+.cancel-btn {
   padding: 14px 28px;
   font-size: 1rem;
   font-weight: 600;
@@ -416,13 +418,13 @@ input:checked + .slider:before {
 }
 
 .edit-btn:hover {
-  background: linear-gradient(to right,  #6a11cb 0%, #a625fc 100%);
+  background: linear-gradient(to right, #6a11cb 0%, #a625fc 100%);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(106, 17, 203, 0.3);
 }
 
 .save-btn:hover {
-  background: linear-gradient(to right,  #6b36cf, #5f1788);
+  background: linear-gradient(to right, #6b36cf, #5f1788);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 176, 155, 0.3);
 }
@@ -443,18 +445,20 @@ input:checked + .slider:before {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 900px) {
   .profile-content {
     flex-direction: column;
   }
-  
+
   .profile-sidebar {
     width: 100%;
   }
-  
+
   .form-row {
     flex-direction: column;
     gap: 0;
