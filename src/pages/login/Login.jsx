@@ -13,7 +13,7 @@ function Login() {
         <div className="form-header">
           <h2>Iniciar Sesión</h2>
           <a href="/register" class="register-link">
-            ¿Es tu primera vez? Regístrate
+            ¿No tienes una Cuenta? Regístrate aquí
           </a>
         </div>
         <form onSubmit={handleSubmit}>
@@ -22,7 +22,6 @@ function Login() {
             <input
               type="text"
               id="email"
-              placeholder="Ingresa Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -33,13 +32,13 @@ function Login() {
             <input
               type="password"
               id="password"
-              placeholder="Ingresa tu Contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
 
+          <p id="validation"></p>
           <div className="button-group">
             <button type="submit">Ingresar</button>
           </div>
@@ -50,10 +49,21 @@ function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await supabase.auth.signInWithPassword({
+    const credentials = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
+
+    const validation = document.getElementById("validation");
+
+    if (credentials.error) {
+      validation.style.display = "block";
+      validation.innerHTML = "Las credenciales son incorrectas";
+      validation.style.color = "#880000";
+      validation.style.backgroundColor = "#e68f8f";
+    } else {
+      validation.style.display = "none";
+    }
   }
 }
 

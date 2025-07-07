@@ -130,3 +130,9 @@ form button[type="submit"] {
 form button[type="submit"]:hover {
   background: linear-gradient(to right, #303f9f, #7200a7);
 }
+p#validation {
+  border-radius: 4px;
+  width: fit-content;
+  padding: 7px;
+  margin-bottom: 15px;
+}

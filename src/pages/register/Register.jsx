@@ -5,7 +5,6 @@ import FormLayout from "../../layouts/FormLayout";
 
 function Register() {
   const [name, setName] = useState("");
-  const [birth, setBirth] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,17 +21,8 @@ function Register() {
               type="text"
               id="name"
               value={name}
+              placeholder="John Smith"
               onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="birth">Fecha de Nacimiento:</label>
-            <input
-              type="date"
-              id="birth"
-              value={birth}
-              onChange={(e) => setBirth(e.target.value)}
               required
             />
           </div>
@@ -42,24 +32,33 @@ function Register() {
               type="email"
               id="email"
               value={email}
+              placeholder="john.smith@email.com"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
           <div className="form-group">
             <label htmlFor="password">Contraseña:</label>
+            <input type="password" id="password" required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="confirm">Confirmar Contraseña:</label>
             <input
               type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              id="confirm"
+              onChange={(e) => validatePassword(e)}
               required
             />
           </div>
+
+          <p id="validation"></p>
           <div className="button-group">
             <button type="submit">Registrar</button>
-            <div className="form-link">
-              <a href="/login">Cancelar</a>
+            <div
+              className="form-link"
+              onClick={() => (location.href = "/login")}
+            >
+              Cancelar
             </div>
           </div>
         </form>
@@ -74,11 +73,28 @@ function Register() {
       password: password,
       options: {
         data: {
-          name: name,
-          birth: birth,
+          display_name: name,
         },
       },
     });
+    location.replace("/login");
+  }
+  function validatePassword(e) {
+    const password = document.getElementById("password");
+    const confirm = document.getElementById("confirm");
+    const validation = document.getElementById("validation");
+
+    if (confirm.value === password.value) {
+      setPassword(e.target.value);
+      validation.innerHTML = "Las contraseñas coinciden";
+      validation.style.color = "#008812";
+      validation.style.backgroundColor = "#8fe695";
+    } else {
+      setPassword("");
+      validation.innerHTML = "Las contraseñas no coinciden";
+      validation.style.color = "#880000";
+      validation.style.backgroundColor = "#e68f8f";
+    }
   }
 }
 

@@ -5,12 +5,8 @@ form .button-group .form-link {
   padding: 16px;
   background-color: #7176d3;
   border-radius: 8px;
-}
-.form-link a {
   color: white;
-  text-decoration: none;
   font-weight: bold;
-  height: min-content;
 }
 
 form .button-group .form-link:hover {
