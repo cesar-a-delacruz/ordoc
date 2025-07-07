@@ -9,13 +9,13 @@ function Profile() {
 
   useEffect(() => {
     (async () => {
-      // const user = (await supabase.auth.getUser()).data.user;
-      // const profile = (
-      //   await supabase.from("profiles").select("name, birth").eq("id", user.id)
-      // ).data[0];
-      // setName(profile.name);
-      // setBirth(profile.birth);
-      // setEmail(user.email);
+      const user = (await supabase.auth.getUser()).data.user;
+      const profile = (
+        await supabase.from("profiles").select("name, birth").eq("id", user.id)
+      ).data[0];
+      setName(profile.name);
+      setBirth(profile.birth);
+      setEmail(user.email);
     })();
   }, []);
 

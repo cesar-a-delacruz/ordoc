@@ -1,0 +1,132 @@
+div.form-layout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+header.form-layout {
+  background: linear-gradient(to right, #303f9f, #7200a7);
+  color: white;
+  padding: 16px;
+  text-align: center;
+}
+
+main.form-layout {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #121c44, #3b1165);
+  padding: 24px;
+}
+
+footer.form-layout {
+  background: linear-gradient(to right, #303f9f, #7200a7);
+  text-align: center;
+  padding: 12px;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.form-container {
+  background-color: #3f4276;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 450px;
+  padding: 40px;
+  text-align: center;
+}
+
+.form-header {
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+  text-align: left;
+  min-width: 90%;
+}
+h2 {
+  color: white;
+  margin-bottom: 10px;
+  font-size: 32px;
+  font-weight: 700;
+}
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: white;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-bottom: 3px solid #62659e;
+  font-size: 16px;
+  transition: border-color 0.3s;
+  background-color: #62659e;
+  border-radius: 4px;
+  color: white;
+}
+
+input:focus {
+  outline: none;
+  border-bottom-color: #9748e1;
+}
+
+input::placeholder {
+  color: #bbbbbb;
+  font-weight: 500;
+}
+form .button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+form .button-group button {
+  background-color: #4a6ee0;
+  color: white;
+  border: none;
+  padding: 16px;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
+  box-shadow: 0 4px 10px rgba(74, 110, 224, 0.3);
+}
+
+form .button-group button:hover {
+  background-color: #3a5ec8;
+  transform: translateY(-2px);
+}
+
+form .button-group button:active {
+  transform: translateY(1px);
+}
+form button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(to right, #6a11cb 0%, #a625fc 100%);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+form button[type="submit"]:hover {
+  background: linear-gradient(to right, #303f9f, #7200a7);
+}

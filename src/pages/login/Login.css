@@ -1,13 +1,13 @@
 .register-link {
   display: block;
   margin-bottom: 30px;
-  color: #667eea;
+  color: #a7b7ff;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s;
 }
 
 .register-link:hover {
-  color: #764ba2;
+  color: #c48efa;
   text-decoration: underline;
 }

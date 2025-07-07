@@ -3,17 +3,17 @@ form .button-group .form-link {
   justify-content: center;
   align-items: center;
   padding: 16px;
-  background-color: #f1f3f9;
-  border: 1px solid #e0e6ed;
+  background-color: #7176d3;
   border-radius: 8px;
 }
 .form-link a {
-  color: #5a626d;
+  color: white;
   text-decoration: none;
+  font-weight: bold;
   height: min-content;
 }
 
 form .button-group .form-link:hover {
-  background-color: #e4e8f4;
+  background-color: #9ea1e8;
   transform: translateY(-2px);
 }
