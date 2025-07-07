@@ -14,3 +14,35 @@ div#root {
   height: 100vh;
   max-width: 100vw;
 }
+
+div.layout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+header.layout {
+  background: linear-gradient(to right, #303f9f, #7200a7);
+  color: white;
+  text-align: center;
+}
+
+main.layout {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #121c44, #3b1165);
+  padding: 24px;
+}
+
+footer.layout {
+  background: linear-gradient(to right, #303f9f, #7200a7);
+  text-align: center;
+  padding: 12px;
+  font-size: 0.9rem;
+  color: white;
+}

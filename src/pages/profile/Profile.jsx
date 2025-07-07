@@ -1,67 +1,85 @@
 import { useState, useEffect } from "react";
 import supabase from "../../apis/supabase";
 import "./Profile.css";
+import logo from "../../assets/images/user.png";
+import CardLayout from "../../layouts/CardLayout";
 
 function Profile() {
   const [name, setName] = useState("");
-  const [birth, setBirth] = useState("");
   const [email, setEmail] = useState("");
 
   useEffect(() => {
     (async () => {
       const user = (await supabase.auth.getUser()).data.user;
-      const profile = (
-        await supabase.from("profiles").select("name, birth").eq("id", user.id)
-      ).data[0];
-      setName(profile.name);
-      setBirth(profile.birth);
-      setEmail(user.email);
+      setName(user.user_metadata.display_name);
+      setEmail(user.user_metadata.email);
     })();
   }, []);
 
   return (
-    <div className="form-container profile">
-      <div className="form-header">
-        <h1>Datos Personales</h1>
-      </div>
-      <form>
-        <div className="form-group">
-          <label htmlFor="name">Nombre Completo:</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+    <CardLayout>
+      <div className="profile-sidebar">
+        <div className="heading-container">
+          <h2>Datos Personales</h2>
         </div>
-        <div className="form-group">
-          <label htmlFor="birth">Fecha de Nacimiento:</label>
-          <input
-            type="date"
-            id="birth"
-            value={birth}
-            onChange={(e) => setBirth(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">E-mail:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+        <div className="avatar-container">
+          <div className="avatar">
+            <img src={logo} alt="Avatar" />
+          </div>
+          <h3 className="profile-name">{name}</h3>
+          <p className="profile-email">{email}</p>
         </div>
 
-        <div className="button-group">
-          <button>Actualizar</button>
+        <div className="profile-stats">
+          <div className="stat-item">
+            <div className="stat-value">12</div>
+            <div className="stat-label">Documentos</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-value">4</div>
+            <div className="stat-label">Vigentes</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-value">3</div>
+            <div className="stat-label">Expirados</div>
+          </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </CardLayout>
   );
+  // return (
+  //   <div className="form-container profile">
+  //     <div className="form-header">
+  //       <h1>Datos Personales</h1>
+  //     </div>
+  //     <form>
+  //       <div className="form-group">
+  //         <label htmlFor="name">Nombre Completo:</label>
+  //         <input
+  //           type="text"
+  //           id="name"
+  //           value={name}
+  //           onChange={(e) => setName(e.target.value)}
+  //           required
+  //         />
+  //       </div>
+  //       <div className="form-group">
+  //         <label htmlFor="email">E-mail:</label>
+  //         <input
+  //           type="email"
+  //           id="email"
+  //           value={email}
+  //           onChange={(e) => setEmail(e.target.value)}
+  //           required
+  //         />
+  //       </div>
+
+  //       <div className="button-group">
+  //         <button>Actualizar</button>
+  //       </div>
+  //     </form>
+  //   </div>
+  // );
 }
 
 export default Profile;

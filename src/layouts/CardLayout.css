@@ -1,0 +1,75 @@
+.header-with-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 20px;
+    padding: 20px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    margin: 0;
+}
+nav a {
+  margin: 0 15px;
+  color: #ffffffcc;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+nav a:hover {
+  color: #61dafb;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-bar {
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: #62659e;
+  border-bottom: 3px solid #62659e;
+  min-width: 180px;
+}
+
+.search-button {
+  padding: 8px 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color: #45a049;
+}
+
+.logout-button {
+  padding: 10px;
+  background-color: #7176d3;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+.logout-button:hover {
+  background-color: #9ea1e8;
+  transform: translateY(-2px);
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}

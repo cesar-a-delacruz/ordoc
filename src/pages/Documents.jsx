@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import supabase from "../apis/supabase";
 import Card from "../components/Card";
+import CardLayout from "../layouts/CardLayout";
 
-function Home() {
+function Documents() {
   const [documents, setDocuments] = useState([]);
   useEffect(() => {
     (async () => {
@@ -15,12 +16,12 @@ function Home() {
   }, []);
 
   return (
-    <div className="card-container">
+    <CardLayout>
       {documents.map((document) => (
         <Card key={document.id} {...document} />
       ))}
-    </div>
+    </CardLayout>
   );
 }
 
-export default Home;
+export default Documents;

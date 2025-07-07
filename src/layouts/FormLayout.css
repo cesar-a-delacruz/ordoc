@@ -1,34 +1,5 @@
-div.form-layout {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-header.form-layout {
-  background: linear-gradient(to right, #303f9f, #7200a7);
-  color: white;
-  padding: 16px;
-  text-align: center;
-}
-
-main.form-layout {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(to right, #121c44, #3b1165);
-  padding: 24px;
-}
-
-footer.form-layout {
-  background: linear-gradient(to right, #303f9f, #7200a7);
-  text-align: center;
-  padding: 12px;
-  font-size: 0.9rem;
-  color: white;
+.header-no-nav {
+  padding: 20px;
 }
 
 .form-container {
@@ -117,8 +88,8 @@ form .button-group button:active {
 }
 form button[type="submit"] {
   width: 100%;
-  padding: 12px;
-  background: linear-gradient(to right, #6a11cb 0%, #a625fc 100%);
+  padding: 10px;
+  background: linear-gradient(to right, #8115f4 0%, #a625fc 100%);
   color: white;
   font-weight: bold;
   border: none;
@@ -128,7 +99,7 @@ form button[type="submit"] {
 }
 
 form button[type="submit"]:hover {
-  background: linear-gradient(to right, #303f9f, #7200a7);
+  background: linear-gradient(to right, #3a4cc2, #8a00ca);
 }
 p#validation {
   border-radius: 4px;

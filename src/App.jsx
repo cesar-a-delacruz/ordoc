@@ -5,7 +5,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Profile from "./pages/profile/Profile";
 import Upload from "./pages/upload/Upload";
-import Home from "./pages/Home";
+import Documents from "./pages/Documents";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/upload" element={<Upload />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/documents" element={<Documents />} />
       </Routes>
     </>
   );
