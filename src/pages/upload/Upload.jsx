@@ -1,5 +1,6 @@
 import { useState } from "react";
 import supabase from "../../apis/supabase";
+import "./Upload.css";
 
 function Upload() {
   const [name, setName] = useState("");
@@ -27,55 +28,58 @@ function Upload() {
   };
 
   return (
-    <div>
-      <h2>Subir Documento</h2>
+    <div className="form-container">
+      <div className="form-header">
+        <h2>Subir Documento</h2>
+      </div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="file">Documento:</label>
-        <input type="file" id="file" required accept=".jpg,.png,.pdf," />
-        <br />
-        <br />
-        <label htmlFor="name">Nombre:</label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <br />
-        <br />
-        <label htmlFor="type">Tipo:</label>
-        <select id="type" onChange={(e) => setType(e.target.value)}>
-          <option value="">-- Selecciona una opción --</option>
-          <option value="Certificado">Certificado</option>
-          <option value="Licencia">Licencia</option>
-          <option value="Identificación">Identificación</option>
-          <option value="Contrato">Contrato</option>
-          <option value="Factura">Factura</option>
-          <option value="Otro">Otro</option>
-        </select>
-        <br />
-        <br />
-        <label htmlFor="expedition">Expedición:</label>
-        <input
-          type="date"
-          id="expedition"
-          onChange={(e) => setExpedition(e.target.value)}
-          required
-        />
-        <br />
-        <br />
-        <label htmlFor="expiration">Vencimiento:</label>
-        <input
-          type="date"
-          id="expiration"
-          onChange={(e) => setExpiration(e.target.value)}
-          required
-        />
-        <br />
-        <br />
-
-        <button type="submit">Guardar</button>
+        <div className="form-group">
+          <label htmlFor="file">Documento:</label>
+          <input type="file" id="file" required accept=".jpg,.png,.pdf," />
+        </div>
+        <div className="form-group">
+          <label htmlFor="name">Nombre:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="type">Tipo:</label>
+          <select id="type" onChange={(e) => setType(e.target.value)}>
+            <option value="">-- Selecciona una opción --</option>
+            <option value="Certificado">Certificado</option>
+            <option value="Licencia">Licencia</option>
+            <option value="Identificación">Identificación</option>
+            <option value="Contrato">Contrato</option>
+            <option value="Factura">Factura</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="expedition">Expedición:</label>
+          <input
+            type="date"
+            id="expedition"
+            onChange={(e) => setExpedition(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="expiration">Vencimiento:</label>
+          <input
+            type="date"
+            id="expiration"
+            onChange={(e) => setExpiration(e.target.value)}
+            required
+          />
+        </div>
+        <div className="button-group">
+          <button type="submit">Guardar</button>
+        </div>
       </form>
     </div>
   );
