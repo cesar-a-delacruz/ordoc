@@ -1,6 +1,4 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import supabase from "./apis/supabase/";
-import google from "./apis/google";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Profile from "./pages/profile/Profile";

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import supabase from "../../apis/supabase";
+import google from "../../apis/google";
 import "./Upload.css";
 import CardLayout from "../../layouts/CardLayout";
 
@@ -18,7 +19,13 @@ function Upload() {
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="file">Documento:</label>
-            <input type="file" id="file" required accept=".jpg,.png,.pdf," />
+            <input
+              type="file"
+              id="file"
+              onChange={(e) => fillInputs(e)}
+              required
+              accept=".jpg,.png,.pdf,"
+            />
           </div>
           <div className="form-group">
             <label htmlFor="name">Nombre:</label>
@@ -32,7 +39,12 @@ function Upload() {
           </div>
           <div className="form-group">
             <label htmlFor="type">Tipo:</label>
-            <select id="type" onChange={(e) => setType(e.target.value)} required>
+            <select
+              id="type"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              required
+            >
               <option value="">-- Selecciona el tipo de documento --</option>
               <option value="Certificado">Certificado</option>
               <option value="Licencia">Licencia</option>
@@ -47,6 +59,7 @@ function Upload() {
             <input
               type="date"
               id="expedition"
+              value={expedition}
               onChange={(e) => setExpedition(e.target.value)}
               required
             />
@@ -56,6 +69,7 @@ function Upload() {
             <input
               type="date"
               id="expiration"
+              value={expiration}
               onChange={(e) => setExpiration(e.target.value)}
               required
             />
@@ -85,7 +99,24 @@ function Upload() {
       url: supabase.storage.from("documents").getPublicUrl(fileBucketPath).data
         .publicUrl,
     });
-  };
+  }
+  async function fillInputs(e) {
+    const file = e.target.files[0];
+    const uploadedFile = await google.ai.files.upload({
+      file: file,
+    });
+
+    const response = await google.ai.models.generateContent({
+      model: google.model,
+      contents: google.promptWithFile(uploadedFile),
+    });
+    const parsedResponse = response.text.split(",");
+
+    setName(parsedResponse[0]);
+    setType(parsedResponse[1]);
+    setExpedition(parsedResponse[2]);
+    setExpiration(parsedResponse[3]);
+  }
 }
 
 export default Upload;
