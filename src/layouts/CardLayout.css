@@ -1,19 +1,29 @@
 .header-with-nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
-    gap: 20px;
-    padding: 20px 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.header-with-nav > * {
+  margin: 15px 0;
 }
 
-h1 {
-    margin: 0;
+h1,
+.header-with-nav > nav {
+  margin: 0;
+}
+nav {
+  background-color: #7176d3;
+  height: 100%;
 }
 nav a {
-  margin: 0 15px;
+  display: inline-flex;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  padding: 0 15px;
   color: #ffffffcc;
   text-decoration: none;
   font-weight: 500;
@@ -21,7 +31,7 @@ nav a {
 }
 
 nav a:hover {
-  color: #61dafb;
+  background: linear-gradient(to right, #3a4cc2, #8a00ca);
 }
 
 .actions {
@@ -40,15 +50,10 @@ nav a:hover {
 
 .search-button {
   padding: 8px 12px;
-  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}
-
-.search-button:hover {
-  background-color: #45a049;
 }
 
 .logout-button {
@@ -72,4 +77,14 @@ nav a:hover {
   justify-content: center;
   align-items: flex-start;
   width: 100%;
+}
+@media (orientation: portrait) {
+  nav {
+    width: 100%;
+    height: 50px;
+    border-radius: 0px;
+  }
+  nav a {
+    flex: 1;
+  }
 }

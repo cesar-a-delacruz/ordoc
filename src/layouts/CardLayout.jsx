@@ -12,7 +12,7 @@ function CardLayout({ children }) {
           </nav>
           <form className="actions">
             <button type="submit" className="search-button">🔍</button>
-            <input type="text" placeholder="Search..." className="search-bar" />
+            <input type="text" placeholder="Buscar..." className="search-bar" />
             <button className="logout-button">Salir</button>
           </form>
       </header>
