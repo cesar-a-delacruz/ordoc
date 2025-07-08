@@ -61,7 +61,6 @@ function Upload() {
               id="expedition"
               value={expedition}
               onChange={(e) => setExpedition(e.target.value)}
-              required
             />
           </div>
           <div className="form-group">
@@ -71,7 +70,6 @@ function Upload() {
               id="expiration"
               value={expiration}
               onChange={(e) => setExpiration(e.target.value)}
-              required
             />
           </div>
           <div className="button-group">
@@ -87,7 +85,7 @@ function Upload() {
     const user = (await supabase.auth.getUser()).data.user;
     const file = document.getElementById("file").files[0];
     const fileBucketPath =
-      `${user.id.toString()}/${name.replaceAll(" ", "-")}` +
+      `${user.id.toString()}/${name.replaceAll(" ", "-")}.` +
       file.name.substring(file.name.lastIndexOf(".") + 1).toLowerCase();
 
     await supabase.storage.from("documents").upload(fileBucketPath, file);
@@ -111,6 +109,20 @@ function Upload() {
       contents: google.promptWithFile(uploadedFile),
     });
     const parsedResponse = response.text.split(",");
+
+    for (let i = 0; i < parsedResponse.length; i++) {
+      if (i === 0) {
+        parsedResponse[i] = parsedResponse[i]
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/ñ/g, "n")
+          .replace(/Ñ/g, "N");
+      } else if (i > 1) {
+        parsedResponse[i] = Date.parse(parsedResponse[i])
+          ? parsedResponse[i]
+          : null;
+      }
+    }
 
     setName(parsedResponse[0]);
     setType(parsedResponse[1]);
