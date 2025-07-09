@@ -20,8 +20,9 @@ div.document form {
   justify-content: center;
   align-items: center;
   width: max-content;
+  width: 90%;
 }
-div.document .form-group {
+div.document .form-group:not(:first) {
   display: flex;
   justify-content: center;
   align-items: center;

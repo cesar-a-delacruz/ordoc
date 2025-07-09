@@ -11,8 +11,18 @@ function Documents() {
   return (
     <CardLayout>
       <div className="document">
-        <img src={doc.url} alt={doc.name} className="card-image" />
         <form>
+          <div className="form-group">
+            <img src={doc.url} alt="Preview" className="preview" />
+            {editMode && (
+              <input
+                type="file"
+                id="file"
+                onChange={(e) => fillInputs(e)}
+                accept=".jpg,.png,"
+              />
+            )}
+          </div>
           <div className="form-group">
             <label htmlFor="name">Nombre:</label>
             <input

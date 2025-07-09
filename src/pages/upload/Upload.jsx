@@ -9,6 +9,7 @@ function Upload() {
   const [type, setType] = useState("");
   const [expedition, setExpedition] = useState("");
   const [expiration, setExpiration] = useState("");
+  const [preview, setPreview] = useState(null);
 
   return (
     <CardLayout>
@@ -26,6 +27,7 @@ function Upload() {
               required
               accept=".jpg,.png,"
             />
+            {preview && <img src={preview} alt="Preview" className="preview" />}
           </div>
           <div className="form-group">
             <label htmlFor="name">Nombre:</label>
@@ -109,6 +111,8 @@ function Upload() {
   }
   async function fillInputs(e) {
     const file = e.target.files[0];
+    const imageURL = URL.createObjectURL(file);
+    setPreview(imageURL);
     const uploadedFile = await google.ai.files.upload({
       file: file,
     });
