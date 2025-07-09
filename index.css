@@ -36,7 +36,6 @@ main.layout {
   justify-content: center;
   align-items: center;
   background: linear-gradient(to right, #121c44, #3b1165);
-  padding: 24px;
 }
 
 footer.layout {
