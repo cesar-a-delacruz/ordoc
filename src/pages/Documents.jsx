@@ -5,7 +5,7 @@ import CardLayout from "../layouts/CardLayout";
 
 function Documents() {
   const [documents, setDocuments] = useState([]);
-  
+
   useEffect(() => {
     (async () => {
       const curLength = localStorage.getItem("curLength");

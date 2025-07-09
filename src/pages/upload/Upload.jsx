@@ -24,7 +24,7 @@ function Upload() {
               id="file"
               onChange={(e) => fillInputs(e)}
               required
-              accept=".jpg,.png,.pdf,"
+              accept=".jpg,.png,"
             />
           </div>
           <div className="form-group">
@@ -35,6 +35,8 @@ function Upload() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              title="Solo permite letras, números y espacios"
+              pattern="[a-zA-Z0-9 ]+$"
             />
           </div>
           <div className="form-group">
