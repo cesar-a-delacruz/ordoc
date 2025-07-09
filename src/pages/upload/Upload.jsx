@@ -97,6 +97,7 @@ function Upload() {
       url: supabase.storage.from("documents").getPublicUrl(fileBucketPath).data
         .publicUrl,
     });
+    localStorage.setItem('newLength', (parseInt(localStorage.getItem('newLength')) + 1).toString());
   }
   async function fillInputs(e) {
     const file = e.target.files[0];
