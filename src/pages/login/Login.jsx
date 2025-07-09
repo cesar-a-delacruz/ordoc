@@ -12,7 +12,7 @@ function Login() {
       <div className="form-container">
         <div className="form-header">
           <h2>Iniciar Sesión</h2>
-          <a href="/register" class="register-link">
+          <a href="/register" className="register-link">
             ¿No tienes una Cuenta? Regístrate aquí
           </a>
         </div>

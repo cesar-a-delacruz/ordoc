@@ -9,7 +9,11 @@ function Documents() {
     (async () => {
       const user = (await supabase.auth.getUser()).data.user;
       const data = (
-        await supabase.from("documents").select("*").eq("user_id", user.id)
+        await supabase
+          .from("documents")
+          .select("*")
+          .eq("user_id", user.id)
+          .order("expedition", { ascending: false })
       ).data;
       setDocuments(data);
     })();

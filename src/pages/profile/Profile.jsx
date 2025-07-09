@@ -50,7 +50,7 @@ function Profile() {
 
   return (
     <CardLayout>
-      <div className="profile-sidebar">
+      <div className="profile-container">
         <div className="heading-container">
           <h2>Datos Personales</h2>
         </div>
