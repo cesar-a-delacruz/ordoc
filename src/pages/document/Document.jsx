@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import supabase from "../../apis/supabase";
 import CardLayout from "../../layouts/CardLayout";
 import "./Document.css";
 
@@ -14,7 +15,12 @@ function Documents() {
         <form>
           <div className="form-group">
             <label htmlFor="name">Nombre:</label>
-            <input type="text" id="name" value={doc.name} disabled />
+            <input
+              type="text"
+              id="name"
+              value={doc.name.substring(0, doc.name.lastIndexOf("."))}
+              disabled
+            />
           </div>
           <div className="form-group">
             <label htmlFor="type">Tipo de documento:</label>
@@ -55,7 +61,7 @@ function Documents() {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  formEdit(false);
+                  editDoc(false);
                 }}
               >
                 Cancelar
@@ -65,19 +71,32 @@ function Documents() {
         </form>
         {!editMode && (
           <div className="button-group">
-            <button onClick={() => formEdit(true)}>Editar</button>
-            <button>Eliminar</button>
+            <button onClick={() => editDoc(true)}>Editar</button>
+            <button onClick={() => deleteDoc()}>Eliminar</button>
           </div>
         )}
       </div>
     </CardLayout>
   );
-  function formEdit(edit) {
+  function editDoc(edit) {
     setEditMode(edit);
     const formFields = document.querySelectorAll("div.document input, select");
     for (const field of formFields) {
       field.disabled = !edit;
     }
+  }
+  async function deleteDoc() {
+    const user = (await supabase.auth.getUser()).data.user;
+    const fileBucketPath = `${user.id.toString()}/${doc.name.replaceAll(" ", "-")}`;
+
+    await supabase.storage.from("documents").remove([fileBucketPath]);
+    await supabase.from("documents").delete().eq("id", doc.id);
+    localStorage.setItem(
+      "newLength",
+      (parseInt(localStorage.getItem("newLength")) - 1).toString(),
+    );
+
+    location.replace("/documents");
   }
 }
 

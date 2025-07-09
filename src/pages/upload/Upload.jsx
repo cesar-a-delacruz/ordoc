@@ -84,20 +84,26 @@ function Upload() {
     e.preventDefault();
     const user = (await supabase.auth.getUser()).data.user;
     const file = document.getElementById("file").files[0];
+    const fileExtension = file.name
+      .substring(file.name.lastIndexOf("."))
+      .toLowerCase();
     const fileBucketPath =
-      `${user.id.toString()}/${name.replaceAll(" ", "-")}.` +
-      file.name.substring(file.name.lastIndexOf(".") + 1).toLowerCase();
+      `${user.id.toString()}/${name.replaceAll(" ", "-")}` + fileExtension;
 
     await supabase.storage.from("documents").upload(fileBucketPath, file);
     await supabase.from("documents").insert({
-      name: name,
+      name: name + fileExtension,
       type: type,
       expedition: expedition,
       expiration: expiration,
       url: supabase.storage.from("documents").getPublicUrl(fileBucketPath).data
         .publicUrl,
     });
-    localStorage.setItem('newLength', (parseInt(localStorage.getItem('newLength')) + 1).toString());
+    localStorage.setItem(
+      "newLength",
+      (parseInt(localStorage.getItem("newLength")) + 1).toString(),
+    );
+    location.replace("/documents");
   }
   async function fillInputs(e) {
     const file = e.target.files[0];

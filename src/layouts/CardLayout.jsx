@@ -21,6 +21,7 @@ function CardLayout({ children }) {
             onClick={async (e) => {
               e.preventDefault();
               await supabase.auth.signOut();
+              localStorage.clear();
               location.replace("/login");
             }}
           >
