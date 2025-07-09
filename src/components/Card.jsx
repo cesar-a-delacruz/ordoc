@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import "./Card.css";
-function Card({ id, name, type, expedition, url }) {
+function Card(props) {
+  const { id, name, type, expedition, url } = props;
   return (
     <div className="card">
       <img src={url} alt={name} className="card-image" />
@@ -11,7 +13,9 @@ function Card({ id, name, type, expedition, url }) {
           {` (${new Date(expedition).toLocaleDateString("es-ES", { month: "long" })})`}
         </p>
       )}
-      <a href={"/documents/" + id}>Ver Detalles</a>
+      <Link to={"/document"} state={{ ...props }}>
+        Ver Detalles
+      </Link>
     </div>
   );
 }

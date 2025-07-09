@@ -62,7 +62,7 @@ function Login() {
       validation.style.color = "#880000";
       validation.style.backgroundColor = "#e68f8f";
     } else {
-      validation.style.display = "none";
+      location.replace("/documents");
     }
   }
 }

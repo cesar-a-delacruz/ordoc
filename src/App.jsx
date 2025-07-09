@@ -3,6 +3,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Profile from "./pages/profile/Profile";
 import Upload from "./pages/upload/Upload";
+import Document from "./pages/document/Document";
 import Documents from "./pages/Documents";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/documents" element={<Documents />} />
+        <Route path="/document" element={<Document />} />
       </Routes>
     </>
   );

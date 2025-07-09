@@ -45,3 +45,9 @@ footer.layout {
   font-size: 0.9rem;
   color: white;
 }
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
