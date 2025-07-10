@@ -44,6 +44,7 @@ function Documents() {
               value={doc.name}
               onChange={(e) => setDoc({ ...doc, name: e.target.value })}
               disabled
+              title="Solo permite letras, números y espacios"
               pattern="[a-zA-Z0-9 ]+$"
             />
           </div>

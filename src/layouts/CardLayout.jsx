@@ -16,7 +16,12 @@ function CardLayout({ children }) {
           <a href="/upload">Subir</a>
         </nav>
         <form className="actions">
-          <input type="text" placeholder="Buscar..." className="search-bar" disabled={!canSearch} />
+          <input
+            type="text"
+            placeholder="Buscar..."
+            className="search-bar"
+            disabled={!canSearch}
+          />
           <button
             className="logout-button"
             onClick={async (e) => {
