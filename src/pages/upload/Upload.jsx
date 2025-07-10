@@ -72,7 +72,7 @@ function Upload() {
               type="date"
               id="expedition"
               value={expedition}
-              onChange={(e) => setExpedition(e.target.value)}
+              onChange={(e) => setExpedition(e.target.value === "" ? null : e.target.value)}
             />
           </div>
           <div className="form-group">
@@ -81,7 +81,7 @@ function Upload() {
               type="date"
               id="expiration"
               value={expiration}
-              onChange={(e) => setExpiration(e.target.value)}
+              onChange={(e) => setExpiration(e.target.value === "" ? null : e.target.value)}
             />
           </div>
           <div className="button-group">
@@ -102,8 +102,12 @@ function Upload() {
     const fileBucketPath =
       `${user.id.toString()}/${name.replaceAll(" ", "-")}` + fileExtension;
 
-    await supabase.storage.from("documents").upload(fileBucketPath, file);
-    await supabase.from("documents").insert({
+    const docUpload = await supabase.storage
+      .from("documents")
+      .upload(fileBucketPath, file);
+    if (docUpload.error) alert(docUpload.error);
+
+    const docInsert = await supabase.from("documents").insert({
       name: name + fileExtension,
       type: type,
       expedition: expedition,
@@ -111,6 +115,7 @@ function Upload() {
       url: supabase.storage.from("documents").getPublicUrl(fileBucketPath).data
         .publicUrl,
     });
+    if (docInsert.error) alert(docInsert.error);
 
     localStorage.setItem("docsChanged", "changed");
     location.replace("/documents");
@@ -119,13 +124,15 @@ function Upload() {
     const file = e.target.files[0];
     const imageURL = URL.createObjectURL(file);
     setPreview(imageURL);
-    const uploadedFile = await google.ai.files.upload({
+
+    const aiUpload = await google.ai.files.upload({
       file: file,
     });
+    if (aiUpload.error) alert(aiUpload.error);
 
     const response = await google.ai.models.generateContent({
       model: google.model,
-      contents: google.promptWithFile(uploadedFile),
+      contents: google.promptWithFile(aiUpload),
     });
     const parsedResponse = response.text.split(",");
 

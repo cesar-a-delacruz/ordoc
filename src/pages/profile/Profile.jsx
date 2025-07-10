@@ -23,22 +23,21 @@ function Profile() {
       setEmail(user.user_metadata.email);
       document.getElementById("loading").style.display = "none";
 
-      const documentsExpiration = (
-        await supabase
-          .from("documents")
-          .select("expiration")
-          .eq("user_id", user.id)
-      ).data;
+      const documentsExpiration = await supabase
+        .from("documents")
+        .select("expiration")
+        .eq("user_id", user.id);
+      if (documentsExpiration.error) alert(documentsExpiration.error);
       const currentDate = Date.parse(new Date().toDateString());
 
-      const total = documentsExpiration.length;
-      const current = documentsExpiration.filter(
+      const total = documentsExpiration.data.length;
+      const current = documentsExpiration.data.filter(
         (value) => Date.parse(value.expiration) > currentDate,
       ).length;
-      const expired = documentsExpiration.filter(
+      const expired = documentsExpiration.data.filter(
         (value) => Date.parse(value.expiration) <= currentDate,
       ).length;
-      const permanent = documentsExpiration.filter(
+      const permanent = documentsExpiration.data.filter(
         (value) => value.expiration === null,
       ).length;
 

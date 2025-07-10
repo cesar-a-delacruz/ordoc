@@ -70,7 +70,7 @@ function Register() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await supabase.auth.signUp({
+    const signup = await supabase.auth.signUp({
       email: email,
       password: password,
       options: {
@@ -79,6 +79,7 @@ function Register() {
         },
       },
     });
+    if (signup.error) alert(signup.error);
     location.replace("/login");
   }
   function validatePassword(e) {

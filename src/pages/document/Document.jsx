@@ -6,10 +6,9 @@ import "./Document.css";
 
 function Documents() {
   if (!useLocation().state) location.replace("/documents");
-  document.title = `Ordoc: ${doc.name}`;
-
   const [doc, setDoc] = useState(useLocation().state);
   const [editMode, setEditMode] = useState({ mode: false, prev: null });
+  document.title = `Ordoc: ${doc.name}`;
 
   useEffect(() => {
     setDoc({ ...doc, name: doc.name.substring(0, doc.name.lastIndexOf(".")) });
@@ -50,30 +49,26 @@ function Documents() {
               <option value="Otro">Otro</option>
             </select>
           </div>
-          {doc.expedition && (
-            <div className="form-group">
-              <label htmlFor="expedition">Expedición:</label>
-              <input
-                type="date"
-                id="expedition"
-                value={doc.expedition}
-                onChange={(e) => setDoc({ ...doc, expedition: e.target.value })}
-                disabled
-              />
-            </div>
-          )}
-          {doc.expiration && (
-            <div className="form-group">
-              <label htmlFor="expiration">Vencimiento:</label>
-              <input
-                type="date"
-                id="expiration"
-                value={doc.expiration}
-                onChange={(e) => setDoc({ ...doc, expiration: e.target.value })}
-                disabled
-              />
-            </div>
-          )}
+          <div className="form-group">
+            <label htmlFor="expedition">Expedición:</label>
+            <input
+              type="date"
+              id="expedition"
+              value={doc.expedition}
+              onChange={(e) => setDoc({ ...doc, expedition: (e.target.value === "" ? null : e.target.value) })}
+              disabled
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="expiration">Vencimiento:</label>
+            <input
+              type="date"
+              id="expiration"
+              value={doc.expiration}
+              onChange={(e) => setDoc({ ...doc, expiration: (e.target.value === "" ? null : e.target.value) })}
+              disabled
+            />
+          </div>
           {editMode.mode && (
             <div className="button-group">
               <button type="submit">Guardar</button>
@@ -125,7 +120,7 @@ function Documents() {
   async function updateDoc(e) {
     e.preventDefault();
     const user = (await supabase.auth.getUser()).data.user;
-    await supabase
+    const docUpdate = await supabase
       .from("documents")
       .update({
         name:
@@ -136,6 +131,7 @@ function Documents() {
       })
       .eq("id", doc.id);
 
+    if (docUpdate.error) alert(docUpdate.error);
     localStorage.setItem("docsChanged", "changed");
     location.replace("/documents");
   }
@@ -147,8 +143,15 @@ function Documents() {
       .toLowerCase();
     const fileBucketPath = `${user.id.toString()}/${fileName}${fileExtension}`;
 
-    await supabase.storage.from("documents").remove([fileBucketPath]);
-    await supabase.from("documents").delete().eq("id", doc.id);
+    const docRemove = await supabase.storage
+      .from("documents")
+      .remove([fileBucketPath]);
+    if (docRemove.error) alert(docRemove.error);
+    const docDelete = await supabase
+      .from("documents")
+      .delete()
+      .eq("id", doc.id);
+    if (docDelete.error) alert(docDelete.error);
 
     localStorage.setItem("docsChanged", "changed");
     location.replace("/documents");

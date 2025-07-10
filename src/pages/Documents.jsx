@@ -13,20 +13,20 @@ function Documents() {
     (async () => {
       const docsChanged = localStorage.getItem("docsChanged");
 
-      if (docsChanged !== "changed") {
+      if (docsChanged && docsChanged !== "changed") {
         setDocuments(JSON.parse(localStorage.getItem("docs")));
       } else {
         const user = (await supabase.auth.getUser()).data.user;
-        const data = (
-          await supabase
-            .from("documents")
-            .select("*")
-            .eq("user_id", user.id)
-            .order("expedition", { ascending: false })
-        ).data;
-        setDocuments(data);
+        const docs = await supabase
+          .from("documents")
+          .select("*")
+          .eq("user_id", user.id)
+          .order("expedition", { ascending: false });
 
-        localStorage.setItem("docs", JSON.stringify(data));
+        if (docs.error) alert(docs.error);
+        setDocuments(docs.data);
+
+        localStorage.setItem("docs", JSON.stringify(docs.data));
         localStorage.removeItem("docsChanged");
       }
 
@@ -37,7 +37,7 @@ function Documents() {
   return (
     <CardLayout>
       <p id="loading">Cargando...</p>
-      {documents || documents.length === 0 ? (
+      {documents ? (
         documents.map((document) => <Card key={document.id} {...document} />)
       ) : (
         <p className="empty">
