@@ -3,7 +3,7 @@ import supabase from "../apis/supabase";
 import "./CardLayout.css";
 
 function CardLayout({ children }) {
-  const canSearch = "/documents".includes(useLocation().pathname);
+  const canSearch = ("/documents" === useLocation().pathname);
 
   setTimeout(() => search(), 1);
   return (

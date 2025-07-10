@@ -26,11 +26,14 @@ function Documents() {
         localStorage.setItem("docs", JSON.stringify(data));
         localStorage.removeItem("docsChanged");
       }
+      
+      document.getElementById("loading").style.display = 'none';
     })();
   }, []);
 
   return (
     <CardLayout>
+      <p id="loading">Cargando...</p>
       {documents.map((document) => (
         <Card key={document.id} {...document} />
       ))}
