@@ -11,6 +11,7 @@ function Profile() {
     total: null,
     current: null,
     expired: null,
+    permanent: null,
   });
 
   useEffect(() => {
@@ -18,32 +19,30 @@ function Profile() {
       const user = (await supabase.auth.getUser()).data.user;
       setName(user.user_metadata.display_name);
       setEmail(user.user_metadata.email);
+      const documentsExpiration = (
+        await supabase
+          .from("documents")
+          .select("expiration")
+          .eq("user_id", user.id)
+      ).data;
+      const currentDate = Date.parse(new Date().toDateString());
 
-      const documentCount = (
-        await supabase
-          .from("documents")
-          .select("*", { count: "exact", head: true })
-          .eq("user_id", user.id)
-      ).count;
-      const currentDate = new Date().toDateString();
-      const documentCurrentCount = (
-        await supabase
-          .from("documents")
-          .select("*", { count: "exact", head: true })
-          .eq("user_id", user.id)
-          .gt("expiration", currentDate)
-      ).count;
-      const documentExpiredCount = (
-        await supabase
-          .from("documents")
-          .select("*", { count: "exact", head: true })
-          .eq("user_id", user.id)
-          .lt("expiration", currentDate)
-      ).count;
+      const total = documentsExpiration.length;
+      const current = documentsExpiration.filter(
+        (value) => Date.parse(value.expiration) > currentDate,
+      ).length;
+      const expired = documentsExpiration.filter(
+        (value) => Date.parse(value.expiration) <= currentDate,
+      ).length;
+      const permanent = documentsExpiration.filter(
+        (value) => value.expiration === null,
+      ).length;
+
       setDocumentsStat({
-        total: documentCount,
-        current: documentCurrentCount,
-        expired: documentExpiredCount,
+        total: total,
+        current: current,
+        expired: expired,
+        permanent: permanent,
       });
     })();
   }, []);
@@ -74,6 +73,10 @@ function Profile() {
           <div className="stat-item">
             <div className="stat-value">{documentsStat.expired}</div>
             <div className="stat-label">Expirados</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-value">{documentsStat.permanent}</div>
+            <div className="stat-label">Permanetes</div>
           </div>
         </div>
       </div>
