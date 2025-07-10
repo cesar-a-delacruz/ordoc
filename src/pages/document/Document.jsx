@@ -94,6 +94,7 @@ function Documents() {
       </div>
     </CardLayout>
   );
+  
   function editDoc(edit) {
     const formFields = document.querySelectorAll(
       "div.document input, div.document select",
@@ -131,20 +132,22 @@ function Documents() {
         expiration: doc.expiration,
       })
       .eq("id", doc.id);
-    localStorage.setItem("newLength", 0);
+
+    localStorage.setItem("docsChanged", "changed");
     location.replace("/documents");
   }
   async function deleteDoc() {
     const user = (await supabase.auth.getUser()).data.user;
-    const fileBucketPath = `${user.id.toString()}/${doc.name.replaceAll(" ", "-")}`;
+    const fileName = doc.name.replaceAll(" ", "-");
+    const fileExtension = doc.url
+      .substring(doc.url.lastIndexOf("."))
+      .toLowerCase();
+    const fileBucketPath = `${user.id.toString()}/${fileName}${fileExtension}`;
 
     await supabase.storage.from("documents").remove([fileBucketPath]);
     await supabase.from("documents").delete().eq("id", doc.id);
-    localStorage.setItem(
-      "newLength",
-      (parseInt(localStorage.getItem("newLength")) - 1).toString(),
-    );
 
+    localStorage.setItem("docsChanged", "changed");
     location.replace("/documents");
   }
 }

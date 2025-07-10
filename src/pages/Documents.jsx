@@ -8,10 +8,9 @@ function Documents() {
 
   useEffect(() => {
     (async () => {
-      const curLength = localStorage.getItem("curLength");
-      const newLength = localStorage.getItem("newLength");
+      const docsChanged = localStorage.getItem("docsChanged");
 
-      if (curLength && curLength === newLength) {
+      if (docsChanged !== "changed") {
         setDocuments(JSON.parse(localStorage.getItem("docs")));
       } else {
         const user = (await supabase.auth.getUser()).data.user;
@@ -23,9 +22,9 @@ function Documents() {
             .order("expedition", { ascending: false })
         ).data;
         setDocuments(data);
+        
         localStorage.setItem("docs", JSON.stringify(data));
-        localStorage.setItem("curLength", data.length);
-        localStorage.setItem("newLength", data.length);
+        localStorage.removeItem("docsChanged");
       }
     })();
   }, []);
