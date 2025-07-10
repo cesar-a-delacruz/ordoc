@@ -4,8 +4,12 @@ function Card(props) {
   const { id, name, type, expedition, url } = props;
   return (
     <div className="card">
-      <img src={url} alt={name} className="card-image" />
-      <h3>{name}</h3>
+      <img
+        src={url}
+        alt={name.substring(0, name.lastIndexOf("."))}
+        className="card-image"
+      />
+      <h3>{name.substring(0, name.lastIndexOf("."))}</h3>
       <p className="type">{type}</p>
       {expedition && (
         <p className="date">

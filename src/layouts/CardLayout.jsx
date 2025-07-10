@@ -1,7 +1,11 @@
+import { useLocation } from "react-router-dom";
 import supabase from "../apis/supabase";
 import "./CardLayout.css";
 
 function CardLayout({ children }) {
+  const canSearch = "/documents".includes(useLocation().pathname);
+
+  setTimeout(() => search(), 1);
   return (
     <div className="layout">
       <header className="layout header-with-nav">
@@ -12,10 +16,7 @@ function CardLayout({ children }) {
           <a href="/upload">Subir</a>
         </nav>
         <form className="actions">
-          <button type="submit" className="search-button">
-            🔍
-          </button>
-          <input type="text" placeholder="Buscar..." className="search-bar" />
+          <input type="text" placeholder="Buscar..." className="search-bar" disabled={!canSearch} />
           <button
             className="logout-button"
             onClick={async (e) => {
@@ -39,6 +40,40 @@ function CardLayout({ children }) {
       </footer>
     </div>
   );
+  function search() {
+    const searchBar = document.querySelector(".search-bar");
+    const cards = document.querySelectorAll(".card-container .card");
+
+    searchBar.addEventListener("input", function () {
+      const query = searchBar.value.trim().toLowerCase();
+
+      cards.forEach((card) => {
+        const fullText = getTextRecursively(card).toLowerCase();
+        const queryTokens = query.split(" ");
+        let tokenMatch = 0;
+        queryTokens.forEach((token) => {
+          if (fullText.includes(token)) tokenMatch++;
+        });
+        if (tokenMatch === queryTokens.length) card.style.display = "flex";
+        else card.style.display = "none";
+      });
+    });
+
+    function getTextRecursively(element) {
+      let text = "";
+      for (let node of element.childNodes) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          text += node.textContent;
+        } else if (
+          node.nodeType === Node.ELEMENT_NODE &&
+          node.tagName !== "A"
+        ) {
+          text += getTextRecursively(node);
+        }
+      }
+      return text;
+    }
+  }
 }
 
 export default CardLayout;

@@ -42,18 +42,11 @@ nav a:hover {
 
 .search-bar {
   padding: 8px 12px;
+  line-height: normal;
   border-radius: 6px;
   background-color: #62659e;
   border-bottom: 3px solid #62659e;
   min-width: 180px;
-}
-
-.search-button {
-  padding: 8px 12px;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 .logout-button {
