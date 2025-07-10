@@ -27,10 +27,12 @@ function Upload() {
               required
               accept=".jpg,.png,"
             />
-            {preview && <>
-              <img src={preview} alt="Preview" className="preview" />
-              <p id="loading">Analizando Documento...</p>
-            </>}
+            {preview && (
+              <>
+                <img src={preview} alt="Preview" className="preview" />
+                <p id="loading">Analizando Documento...</p>
+              </>
+            )}
           </div>
           <div className="form-group">
             <label htmlFor="name">Nombre:</label>
@@ -142,8 +144,8 @@ function Upload() {
     setType(parsedResponse[1]);
     setExpedition(parsedResponse[2]);
     setExpiration(parsedResponse[3]);
-    
-    document.getElementById("loading").style.display = 'none';
+
+    document.getElementById("loading").style.display = "none";
   }
 }
 

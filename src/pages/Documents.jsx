@@ -22,21 +22,26 @@ function Documents() {
             .order("expedition", { ascending: false })
         ).data;
         setDocuments(data);
-        
+
         localStorage.setItem("docs", JSON.stringify(data));
         localStorage.removeItem("docsChanged");
       }
-      
-      document.getElementById("loading").style.display = 'none';
+
+      document.getElementById("loading").style.display = "none";
     })();
   }, []);
 
   return (
     <CardLayout>
       <p id="loading">Cargando...</p>
-      {documents.map((document) => (
-        <Card key={document.id} {...document} />
-      ))}
+      {documents || documents.length === 0 ? (
+        documents.map((document) => <Card key={document.id} {...document} />)
+      ) : (
+        <p className="empty">
+          No hay documentos diponibles. <br />
+          Suba sus documentos en la sección "Subir".
+        </p>
+      )}
     </CardLayout>
   );
 }

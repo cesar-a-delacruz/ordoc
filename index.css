@@ -51,3 +51,32 @@ footer.layout {
   gap: 15px;
   margin-top: 10px;
 }
+
+#loading,
+.empty {
+  width: fit-content;
+  height: fit-content;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 7px;
+  color: white;
+  animation: gradientShift;
+  animation-direction: normal;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  border-radius: 12px;
+  margin-top: 10px;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-color: #a625fc;
+  }
+  50% {
+    background-color: #3a4cc2;
+  }
+  100% {
+    background-color: #a625fc;
+  }
+}

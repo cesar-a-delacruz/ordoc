@@ -3,7 +3,7 @@ import supabase from "../apis/supabase";
 import "./CardLayout.css";
 
 function CardLayout({ children }) {
-  const canSearch = ("/documents" === useLocation().pathname);
+  const canSearch = "/documents" === useLocation().pathname;
 
   setTimeout(() => search(), 1);
   return (
@@ -47,21 +47,25 @@ function CardLayout({ children }) {
   );
   function search() {
     const searchBar = document.querySelector(".search-bar");
-    const cards = document.querySelectorAll(".card-container .card");
+    const cardsContainer = document.querySelector(".card-container");
 
     searchBar.addEventListener("input", function () {
       const query = searchBar.value.trim().toLowerCase();
 
-      cards.forEach((card) => {
+      cardsContainer.childNodes.forEach((card) => {
         const fullText = getTextRecursively(card).toLowerCase();
         const queryTokens = query.split(" ");
+
         let tokenMatch = 0;
         queryTokens.forEach((token) => {
           if (fullText.includes(token)) tokenMatch++;
         });
+
         if (tokenMatch === queryTokens.length) card.style.display = "flex";
         else card.style.display = "none";
       });
+
+      document.getElementById("loading").style.display = "none";
     });
 
     function getTextRecursively(element) {

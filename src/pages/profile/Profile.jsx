@@ -19,8 +19,8 @@ function Profile() {
       const user = (await supabase.auth.getUser()).data.user;
       setName(user.user_metadata.display_name);
       setEmail(user.user_metadata.email);
-      document.getElementById("loading").style.display = 'none';
-      
+      document.getElementById("loading").style.display = "none";
+
       const documentsExpiration = (
         await supabase
           .from("documents")
@@ -60,10 +60,12 @@ function Profile() {
             <img src={logo} alt="Avatar" />
           </div>
           <p id="loading">Cargando...</p>
-          {(email) && <>
-            <h3 className="profile-name">{name}</h3>
-            <p className="profile-email">{email}</p>
-          </>}
+          {email && (
+            <>
+              <h3 className="profile-name">{name}</h3>
+              <p className="profile-email">{email}</p>
+            </>
+          )}
         </div>
 
         <div className="profile-stats">

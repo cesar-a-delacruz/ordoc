@@ -94,7 +94,7 @@ function Documents() {
       </div>
     </CardLayout>
   );
-  
+
   function editDoc(edit) {
     const formFields = document.querySelectorAll(
       "div.document input, div.document select",
