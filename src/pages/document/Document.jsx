@@ -5,6 +5,9 @@ import CardLayout from "../../layouts/CardLayout";
 import "./Document.css";
 
 function Documents() {
+  if (!useLocation().state) location.replace("/documents");
+  document.title = `Ordoc: ${doc.name}`;
+
   const [doc, setDoc] = useState(useLocation().state);
   const [editMode, setEditMode] = useState({ mode: false, prev: null });
 

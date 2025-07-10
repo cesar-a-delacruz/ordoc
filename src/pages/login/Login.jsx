@@ -4,6 +4,9 @@ import "./Login.css";
 import FormLayout from "../../layouts/FormLayout";
 
 function Login() {
+  if (localStorage.getItem("logged") === "yes") location.replace("/documents");
+  document.title = "Ordoc: Iniciar Sesión";
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -63,6 +66,7 @@ function Login() {
       validation.style.backgroundColor = "#e68f8f";
     } else {
       location.replace("/documents");
+      localStorage.setItem("logged", "yes");
     }
   }
 }

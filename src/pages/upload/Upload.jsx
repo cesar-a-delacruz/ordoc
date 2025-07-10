@@ -5,6 +5,9 @@ import "./Upload.css";
 import CardLayout from "../../layouts/CardLayout";
 
 function Upload() {
+  if (localStorage.getItem("logged") !== "yes") location.replace("/login");
+  document.title = "Ordoc: Subir Documento";
+
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [expedition, setExpedition] = useState("");

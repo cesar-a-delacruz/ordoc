@@ -4,6 +4,9 @@ import Card from "../components/Card";
 import CardLayout from "../layouts/CardLayout";
 
 function Documents() {
+  if (localStorage.getItem("logged") !== "yes") location.replace("/login");
+  document.title = "Ordoc: Documentos";
+
   const [documents, setDocuments] = useState([]);
 
   useEffect(() => {

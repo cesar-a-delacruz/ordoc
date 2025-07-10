@@ -4,6 +4,8 @@ import "./Register.css";
 import FormLayout from "../../layouts/FormLayout";
 
 function Register() {
+  if (localStorage.getItem("logged") === "yes") location.replace("/documents");
+  document.title = "Ordoc: Crear Cuenta";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

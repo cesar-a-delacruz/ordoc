@@ -5,6 +5,8 @@ import logo from "../../assets/images/user.png";
 import CardLayout from "../../layouts/CardLayout";
 
 function Profile() {
+  if (localStorage.getItem("logged") !== "yes") location.replace("/login");
+  document.title = "Ordoc: Perfil";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [documentsStat, setDocumentsStat] = useState({
