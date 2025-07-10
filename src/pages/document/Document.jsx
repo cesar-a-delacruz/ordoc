@@ -6,8 +6,7 @@ import "./Document.css";
 
 function Documents() {
   const [doc, setDoc] = useState(useLocation().state);
-  const [editMode, setEditMode] = useState(false);
-  const [preview, setPreview] = useState(null);
+  const [editMode, setEditMode] = useState({ mode: false, prev: null });
 
   useEffect(() => {
     setDoc({ ...doc, name: doc.name.substring(0, doc.name.lastIndexOf(".")) });
@@ -16,25 +15,9 @@ function Documents() {
   return (
     <CardLayout>
       <div className="document">
-        <form>
+        <form onSubmit={updateDoc}>
           <div className="form-group">
-            <img
-              src={editDoc && preview ? preview : doc.url}
-              alt="Preview"
-              className="preview"
-            />
-            {editMode && (
-              <input
-                type="file"
-                id="file"
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  const imageURL = URL.createObjectURL(file);
-                  setPreview(imageURL);
-                }}
-                accept=".jpg,.png,"
-              />
-            )}
+            <img src={doc.url} alt="Preview" className="preview" />
           </div>
           <div className="form-group">
             <label htmlFor="name">Nombre:</label>
@@ -88,7 +71,7 @@ function Documents() {
               />
             </div>
           )}
-          {editMode && (
+          {editMode.mode && (
             <div className="button-group">
               <button type="submit">Guardar</button>
               <button
@@ -102,7 +85,7 @@ function Documents() {
             </div>
           )}
         </form>
-        {!editMode && (
+        {!editMode.mode && (
           <div className="button-group">
             <button onClick={() => editDoc(true)}>Editar</button>
             <button onClick={() => deleteDoc()}>Eliminar</button>
@@ -112,11 +95,44 @@ function Documents() {
     </CardLayout>
   );
   function editDoc(edit) {
-    setEditMode(edit);
-    const formFields = document.querySelectorAll("div.document input, select");
-    for (const field of formFields) {
-      field.disabled = !edit;
+    const formFields = document.querySelectorAll(
+      "div.document input, div.document select",
+    );
+    const prev = {};
+
+    if (edit === true) {
+      for (const field of formFields) {
+        field.disabled = false;
+        Object.defineProperty(prev, field.id, {
+          value: field.value,
+          enumerable: true,
+        });
+      }
+      setEditMode({ mode: edit, prev: prev });
+    } else {
+      for (const field of formFields) {
+        field.disabled = true;
+      }
+
+      setDoc({ ...editMode.prev, url: doc.url });
+      setEditMode({ ...editMode, mode: edit });
     }
+  }
+  async function updateDoc(e) {
+    e.preventDefault();
+    const user = (await supabase.auth.getUser()).data.user;
+    await supabase
+      .from("documents")
+      .update({
+        name:
+          doc.name + doc.url.substring(doc.url.lastIndexOf(".")).toLowerCase(),
+        type: doc.type,
+        expedition: doc.expedition,
+        expiration: doc.expiration,
+      })
+      .eq("id", doc.id);
+    localStorage.setItem("newLength", 0);
+    location.replace("/documents");
   }
   async function deleteDoc() {
     const user = (await supabase.auth.getUser()).data.user;
