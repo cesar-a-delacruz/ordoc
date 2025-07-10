@@ -72,7 +72,9 @@ function Upload() {
               type="date"
               id="expedition"
               value={expedition}
-              onChange={(e) => setExpedition(e.target.value === "" ? null : e.target.value)}
+              onChange={(e) =>
+                setExpedition(e.target.value === "" ? null : e.target.value)
+              }
             />
           </div>
           <div className="form-group">
@@ -81,7 +83,9 @@ function Upload() {
               type="date"
               id="expiration"
               value={expiration}
-              onChange={(e) => setExpiration(e.target.value === "" ? null : e.target.value)}
+              onChange={(e) =>
+                setExpiration(e.target.value === "" ? null : e.target.value)
+              }
             />
           </div>
           <div className="button-group">

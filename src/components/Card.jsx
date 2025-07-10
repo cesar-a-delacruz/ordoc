@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import supabase from "../apis/supabase";
 import "./Card.css";
 function Card(props) {
   const { id, name, type, expedition, url } = props;
@@ -17,9 +18,28 @@ function Card(props) {
           {` (${new Date(expedition).toLocaleDateString("es-ES", { month: "long" })})`}
         </p>
       )}
-      <Link to={"/document"} state={{ ...props }}>
-        Ver Detalles
-      </Link>
+      <div className="button-group">
+        <Link to={"/document"} state={{ ...props }}>
+          Ver Detalles
+        </Link>
+        <button
+          className="download"
+          onClick={async (e) => {
+            e.preventDefault();
+            const response = await fetch(url);
+            const blob = await response.blob();
+
+            const element = document.createElement("a");
+            element.href = URL.createObjectURL(blob);
+            element.download = name;
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+          }}
+        >
+          Descargar
+        </button>
+      </div>
     </div>
   );
 }

@@ -55,7 +55,12 @@ function Documents() {
               type="date"
               id="expedition"
               value={doc.expedition}
-              onChange={(e) => setDoc({ ...doc, expedition: (e.target.value === "" ? null : e.target.value) })}
+              onChange={(e) =>
+                setDoc({
+                  ...doc,
+                  expedition: e.target.value === "" ? null : e.target.value,
+                })
+              }
               disabled
             />
           </div>
@@ -65,7 +70,12 @@ function Documents() {
               type="date"
               id="expiration"
               value={doc.expiration}
-              onChange={(e) => setDoc({ ...doc, expiration: (e.target.value === "" ? null : e.target.value) })}
+              onChange={(e) =>
+                setDoc({
+                  ...doc,
+                  expiration: e.target.value === "" ? null : e.target.value,
+                })
+              }
               disabled
             />
           </div>
