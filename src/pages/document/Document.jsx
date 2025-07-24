@@ -4,15 +4,11 @@ import supabase from "../../apis/supabase";
 import CardLayout from "../../layouts/CardLayout";
 import "./Document.css";
 
-function Documents() {
+function Document() {
   if (!useLocation().state) location.replace("/documents");
   const [doc, setDoc] = useState(useLocation().state);
   const [editMode, setEditMode] = useState({ mode: false, prev: null });
   document.title = `Ordoc: ${doc.name}`;
-
-  useEffect(() => {
-    setDoc({ ...doc, name: doc.name.substring(0, doc.name.lastIndexOf(".")) });
-  }, []);
 
   return (
     <CardLayout>
@@ -129,43 +125,55 @@ function Documents() {
   }
   async function updateDoc(e) {
     e.preventDefault();
-    const user = (await supabase.auth.getUser()).data.user;
+    const user = (await supabase.auth.getSession()).data.session.user;
+    const extension = doc.url.substring(doc.url.lastIndexOf(".")).toLowerCase();
+    const newFileName = doc.name.replaceAll(" ", "-") + extension;
+    const newFilePath = `${user.id}/${newFileName}`;
+
+    const fileRename = await supabase.storage
+      .from("documents")
+      .move(
+        `${user.id}/${doc.url.substring(doc.url.lastIndexOf("/") + 1)}`,
+        `${newFilePath}`,
+      );
+    if (fileRename.error) alert(fileRename.error.message);
+
+    const baseURL = doc.url.substring(0, doc.url.lastIndexOf("/") + 1);
     const docUpdate = await supabase
       .from("documents")
       .update({
-        name:
-          doc.name + doc.url.substring(doc.url.lastIndexOf(".")).toLowerCase(),
-        type: doc.type,
+        name: doc.name,
         expedition: doc.expedition,
         expiration: doc.expiration,
+        url: baseURL + newFileName,
       })
       .eq("id", doc.id);
+    if (docUpdate.error) alert(docUpdate.error.message);
 
-    if (docUpdate.error) alert(docUpdate.error);
     localStorage.setItem("docsChanged", "changed");
     location.replace("/documents");
   }
   async function deleteDoc() {
-    const user = (await supabase.auth.getUser()).data.user;
+    const user = (await supabase.auth.getSession()).data.session.user;
     const fileName = doc.name.replaceAll(" ", "-");
     const fileExtension = doc.url
       .substring(doc.url.lastIndexOf("."))
       .toLowerCase();
-    const fileBucketPath = `${user.id.toString()}/${fileName}${fileExtension}`;
+    const fileBucketPath = `${user.id}/${fileName}${fileExtension}`;
 
     const docRemove = await supabase.storage
       .from("documents")
       .remove([fileBucketPath]);
-    if (docRemove.error) alert(docRemove.error);
+    if (docRemove.error) alert(docRemove.error.message);
     const docDelete = await supabase
       .from("documents")
       .delete()
       .eq("id", doc.id);
-    if (docDelete.error) alert(docDelete.error);
+    if (docDelete.error) alert(docDelete.error.message);
 
     localStorage.setItem("docsChanged", "changed");
     location.replace("/documents");
   }
 }
 
-export default Documents;
+export default Document;

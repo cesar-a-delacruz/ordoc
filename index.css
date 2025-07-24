@@ -52,8 +52,7 @@ footer.layout {
   margin-top: 10px;
 }
 
-#loading,
-.empty {
+#loading {
   width: fit-content;
   height: fit-content;
   text-align: center;

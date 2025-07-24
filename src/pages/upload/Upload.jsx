@@ -98,7 +98,7 @@ function Upload() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const user = (await supabase.auth.getUser()).data.user;
+    const user = (await supabase.auth.getSession()).data.session.user;
     const file = document.getElementById("file").files[0];
     const fileExtension = file.name
       .substring(file.name.lastIndexOf("."))
@@ -112,7 +112,7 @@ function Upload() {
     if (docUpload.error) alert(docUpload.error);
 
     const docInsert = await supabase.from("documents").insert({
-      name: name + fileExtension,
+      name: name,
       type: type,
       expedition: expedition,
       expiration: expiration,

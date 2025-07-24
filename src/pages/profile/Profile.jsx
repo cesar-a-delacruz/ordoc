@@ -18,7 +18,7 @@ function Profile() {
 
   useEffect(() => {
     (async () => {
-      const user = (await supabase.auth.getUser()).data.user;
+      const user = (await supabase.auth.getSession()).data.session.user;
       setName(user.user_metadata.display_name);
       setEmail(user.user_metadata.email);
       document.getElementById("loading").style.display = "none";
@@ -27,7 +27,7 @@ function Profile() {
         .from("documents")
         .select("expiration")
         .eq("user_id", user.id);
-      if (documentsExpiration.error) alert(documentsExpiration.error);
+      if (documentsExpiration.error) alert(documentsExpiration.error.message);
       const currentDate = Date.parse(new Date().toDateString());
 
       const total = documentsExpiration.data.length;

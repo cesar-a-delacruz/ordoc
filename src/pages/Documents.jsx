@@ -16,34 +16,34 @@ function Documents() {
       if (docsChanged && docsChanged !== "changed") {
         setDocuments(JSON.parse(localStorage.getItem("docs")));
       } else {
-        const user = (await supabase.auth.getUser()).data.user;
+        const user = (await supabase.auth.getSession()).data.session.user;
         const docs = await supabase
           .from("documents")
           .select("*")
           .eq("user_id", user.id)
           .order("expedition", { ascending: false });
 
-        if (docs.error) alert(docs.error);
-        setDocuments(docs.data);
-
-        localStorage.setItem("docs", JSON.stringify(docs.data));
-        localStorage.removeItem("docsChanged");
+        if (docs.error) alert(docs.error.message);
+        if (docs.data.length) {
+          setDocuments(docs.data);
+          localStorage.setItem("docs", JSON.stringify(docs.data));
+          localStorage.removeItem("docsChanged");
+          document.getElementById("loading").style.display = "none";
+        } else {
+          document.getElementById("loading").innerHTML =
+            `No hay documentos diponibles. <br />
+          Suba sus documentos en la sección "Subir"`;
+        }
       }
-
-      document.getElementById("loading").style.display = "none";
     })();
   }, []);
 
   return (
     <CardLayout>
-      <p id="loading">Cargando...</p>
-      {documents ? (
+      {documents.length ? (
         documents.map((document) => <Card key={document.id} {...document} />)
       ) : (
-        <p className="empty">
-          No hay documentos diponibles. <br />
-          Suba sus documentos en la sección "Subir".
-        </p>
+        <p id="loading">Cargando...</p>
       )}
     </CardLayout>
   );
